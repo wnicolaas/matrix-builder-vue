@@ -22,19 +22,20 @@ export function getRandomInt(max) {
 
 export function getLogs() {
     return [
-        '17:35 - Done uploading test-green.png!',
-        '17:35 - Uploading test-green.png...',
-        '14:28 - Done uploading hello-world.png!',
-        '14:27 - Uploading hello-world.png...',
-        '12:11 - Activating previous design (rainbow.png)',
+        '17:35 - Done uploading hello-world.png!',
+        '17:35 - Uploading hello-world.png...',
+        '14:28 - Done uploading beach.png!',
+        '14:27 - Uploading beach.png...',
+        '12:11 - Activating previous design (dutch-flag.png)',
         '12:10 - Raspberry is live!',
         '12:09 - Starting up Raspberry...',
         '00:30 - Shutting down Raspberry...',
         '00:30 - Auto-shutdown initiated.',
         '00:25 - Auto-shutdown set for 00:30. Shutting off in 5 minutes.',
-        '00:24 - Done uploading tropical.png!',
-        '00:24 - Uploading tropical.png...',
-        '14:53 - Done uploading pirate-flag.png!',
+        '00:24 - Done uploading hello-world.png!',
+        '00:24 - Uploading hello-world.png...',
+        '14:53 - Done uploading random-pixels.png!',
+        '14:53 - Uploading random-pixels.png...',
     ]
 }
 
@@ -2153,7 +2154,7 @@ function getDesignOne() {
             4
         ]
     ]);
-    design.title = '#1 - Random stuff';
+    design.title = '#1 - Random pixels';
     design.id = 1;
     return design;
 }

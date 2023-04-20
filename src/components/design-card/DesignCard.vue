@@ -3,18 +3,18 @@
     <div class="card">
       <div class="inner-card">
         <div class="icon-group">
-          <div class="icon-button delete">
+          <div class="icon-button delete" @click="deleteDesign" v-if="$store.state.isLoggedIn">
             <IconTrashCan></IconTrashCan>
           </div>
-          <div class="icon-button edit">
+          <div class="icon-button edit" @click="this.$router.push({ path: '/builder/' + design.id })">
             <IconPencil></IconPencil>
           </div>
         </div>
-        <MatrixGrid :is-editable="false" :node-size-px="3" :node-margin-px="1"/>
+        <MatrixGrid :design-values="design.valuesRows" :is-editable="false" :node-size-px="3" :node-margin-px="1"/>
       </div>
       <div class="bottom-content">
-        <p class="design-name">#4 - Test</p>
-        <div class="button">Activate</div>
+        <p class="design-name">{{design.title}}</p>
+        <div class="button" @click="this.$emit('activate', design)">Activate</div>
       </div>
     </div>
   </div>
@@ -24,12 +24,22 @@
 import MatrixGrid from "@/components/matrix-grid/MatrixGrid.vue";
 import IconTrashCan from "@/components/icons/IconTrashCan.vue";
 import IconPencil from "@/components/icons/IconPencil.vue";
+import {Design} from "@/models/Design";
+import ModalLightBox from "@/components/modal/ModalLightBox.vue";
 
 export default {
   name: "DesignCard",
-  components: {IconPencil, IconTrashCan, MatrixGrid},
+  components: {ModalLightBox, IconPencil, IconTrashCan, MatrixGrid},
   props: {
-    
+    design: {
+      type: Design,
+      required: true
+    }
+  },
+  methods: {
+    deleteDesign() {
+      this.$emit('delete', this.design);
+    }
   }
 }
 </script>
@@ -37,7 +47,7 @@ export default {
 <style scoped>
 .container {
   display: inline-block;
-  margin: 5px 25px;
+  margin: 25px 25px;
 }
 
 .card {
@@ -67,14 +77,6 @@ export default {
   right: 0;
   display: flex;
   flex-direction: row;
-}
-
-.delete {
-  background-color: #E6425E;
-}
-
-.delete:hover {
-  background-color: #B9345A;
 }
 
 .bottom-content {

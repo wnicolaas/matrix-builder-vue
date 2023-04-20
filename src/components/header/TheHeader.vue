@@ -38,6 +38,7 @@
 
 <script>
 import ModalLightBox from "@/components/modal/ModalLightBox.vue";
+import {validLogin} from "@/utils/userInfo";
 
 export default {
   name: "Header",
@@ -52,6 +53,10 @@ export default {
   methods: {
     login() {
       console.log('login');
+      if(this.username === validLogin.username && this.password === validLogin.password) {
+        this.$store.state.isLoggedIn = true;
+        this.showLoginModal = false;
+      }
     }
   }
 }

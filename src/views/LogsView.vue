@@ -1,11 +1,12 @@
 <template>
   <div class="logs-container">
     <h1>Logs</h1>
-    <ul>
+    <ul v-if="$store.state.isLoggedIn">
       <li v-for="log in getLogs()" :key="log">
         <div class="log">{{ log }}</div>
       </li>
     </ul>
+    <div v-else>You must be logged in to view logs!</div>
   </div>
 </template>
 

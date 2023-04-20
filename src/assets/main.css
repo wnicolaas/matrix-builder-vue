@@ -25,16 +25,25 @@ body {
     background-color: #2ECC6A;
 }
 
+.button:active {
+    color: #FFFFFF;
+}
+
 .cancel {
     background-color: #FFFFFF;
 }
+
 
 .cancel:hover {
     background-color: #E5E5E5;
 }
 
-.button:active {
-    color: #FFFFFF;
+.delete {
+    background-color: #E6425E;
+}
+
+.delete:hover {
+    background-color: #B9345A;
 }
 
 .icon-button {
