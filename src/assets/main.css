@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    background-color: #4B4B4B;
+    font-family: Gothic A1, sans-serif;
+}
+
+@font-face {
+    font-family: 'Mode Seven';
+    src: url('./ModeSeven.ttf');
+    src: url('./ModeSeven.woff');
+}
+
+.button  {
+    background-color: #3AE374;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    min-width: 50px;
+}
+
+.button:hover {
+    background-color: #2ECC6A;
+}
+
+.button:active {
+    color: #FFFFFF;
+}
+
+.icon-button {
+    padding: 5px 5px 2px;
+    cursor: pointer;
+    background-color: #3AE374;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.icon-button:hover {
+    background-color: #2ECC6A;
+}
+
+.icon-button:active > * {
+    filter: invert(100%);
+}
