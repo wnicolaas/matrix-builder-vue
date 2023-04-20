@@ -35,11 +35,12 @@ export default {
 
 .modal {
   position: relative;
-  background-color: #8F8F8F;
+  background-color: #2D2D2D;
+  color: #FFFFFF;
   min-width: 400px;
-  min-height: 200px;
   border-radius: 5px;
   z-index: 999;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .close-btn {

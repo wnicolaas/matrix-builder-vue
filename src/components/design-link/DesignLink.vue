@@ -1,16 +1,22 @@
 <template>
   <div class="container">
     <p class="title">{{title}}</p>
-    <div class="button activate-button">Activate</div>
+    <div class="button activate-button" @click="activate">Activate</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "DesignLink",
-  data() {
-    return {
-      title: "#1 - Placeholder Title"
+  props: {
+    title: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    activate() {
+      this.$emit('onActivate', this.title);
     }
   }
 }

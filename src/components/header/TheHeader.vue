@@ -1,4 +1,24 @@
 <template>
+
+  <modal-light-box v-if="showLoginModal" @close="showLoginModal = false">
+    <h2>Login</h2>
+    <form @submit.prevent="login">
+      <div class="container">
+        <div class="input-container">
+          <label for="username">Username:</label>
+          <input id="username" v-model="username" required />
+        </div>
+
+        <div class="input-container">
+          <label for="password">Password:</label>
+          <input id="password" type="password" v-model="password" required />
+        </div>
+
+        <div @click="login" class="button">Login</div>
+      </div>
+    </form>
+  </modal-light-box>
+
 <div class="header">
   <div class="title">
     <router-link to="/" class="title-link">MATRIX builder</router-link>
@@ -10,15 +30,30 @@
       <router-link class="link" to="logs">Logs</router-link>
     </div>
     <div class="account">
-      <img class="account-image" src="../../assets/icons/account.svg"/>
+      <img class="account-image" @click="showLoginModal = true" src="../../assets/icons/account.svg"/>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import ModalLightBox from "@/components/modal/ModalLightBox.vue";
+
 export default {
-  name: "Header"
+  name: "Header",
+  components: {ModalLightBox},
+  data() {
+    return {
+      showLoginModal: false,
+      username: '',
+      password: ''
+    }
+  },
+  methods: {
+    login() {
+      console.log('login');
+    }
+  }
 }
 </script>
 
@@ -80,6 +115,16 @@ export default {
 
 .account-image:hover {
   filter: invert(87%) sepia(56%) saturate(1469%) hue-rotate(63deg) brightness(101%) contrast(78%);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-container {
+  margin: 10px 0;
 }
 
 </style>

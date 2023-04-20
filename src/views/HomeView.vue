@@ -1,4 +1,14 @@
 <template>
+  <modal-light-box v-if="showActivateModal" @close="showActivateModal = false">
+    <h2>Activate design?</h2>
+    <p>Do you wish to activate design '{{modalDesignTitle}}'?</p>
+    <div class="button-container">
+      <div class="button cancel" @click="showActivateModal = false">Cancel</div>
+      <div class="button" @click="activate">Activate</div>
+    </div>
+  </modal-light-box>
+
+
   <div class="status-container">
     <p class="status-text">Raspberry Status: </p>
     <p class="status-text status">{{status}} ●</p>
@@ -7,31 +17,22 @@
     <div class="left-content">
       <h1 class="header-h1">Recent Designs</h1>
       <div class="recent-designs">
-        <design-link style="border-top: 2px solid #6D6D6D"/>
-        <design-link/>
-        <design-link/>
-        <design-link/>
+        <design-link class="design-link" v-for="design in getDesigns()" @onActivate="openModal($event)" :title="design.title"/>
       </div>
 
       <h1 class="header-h1" style="margin-top: 50px">Logs</h1>
       <div class="logs">
-        <p class="log" style="border-top: 1px solid #6D6D6D; padding-top: 4px;">17:35 - Done uploading test-green.png!</p>
-        <p class="log">17:35 - Uploading test-green.png...</p>
-        <p class="log">14:28 - Done uploading hello-world.png!</p>
-        <p class="log">14:27 - Uploading hello-world.png...</p>
-        <p class="log">12:11 - Activating previous design (rainbow.png)</p>
-        <p class="log">12:10 - Raspberry is live!</p>
-        <p class="log">12:09 - Starting up Raspberry...</p>
+        <p class="log" v-for="log in getLogs()">{{log}}</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="right-content">
       <h1 class="header-h1">Currently Displaying:</h1>
       <div class="grid">
-        <MatrixGrid :is-editable="false" :node-size-px="5" :node-margin-px="2"/>
+        <MatrixGrid :design-values="activeDesign.valuesRows" key="home-preview" :is-editable="false" :node-size-px="5" :node-margin-px="2"/>
       </div>
-      <p class="active-grid-name">#2 - Test black</p>
-      <div class="button">Edit</div>
+      <p class="active-grid-name">{{activeDesign.title}}</p>
+      <div class="button" @click="this.$router.push({ path: '/builder/' + activeDesign.id });">Edit</div>
     </div>
   </div>
 </template>
@@ -39,13 +40,33 @@
 <script>
 import DesignLink from "@/components/design-link/DesignLink.vue";
 import MatrixGrid from "@/components/matrix-grid/MatrixGrid.vue";
+import {getDesignById, getDesigns, getLogs} from "@/utils/randomData";
+import ModalLightBox from "@/components/modal/ModalLightBox.vue";
 
 export default {
   name: "HomeView",
-  components: {MatrixGrid, DesignLink},
+  components: {ModalLightBox, MatrixGrid, DesignLink},
   data() {
     return {
-      status: 'Online' // TODO : should only show logs & can only delete when online
+      status: 'Online', // TODO : should only show logs & can only delete when logged in
+      showActivateModal: false,
+      modalDesignTitle: '',
+      activeDesign: getDesignById(3)
+    }
+  },
+  methods: {
+    getDesigns() {
+      return getDesigns().slice(0, 4);
+    },
+    getLogs() {
+      return getLogs().slice(0, 7);
+    },
+    openModal(title) {
+      this.modalDesignTitle = title;
+      this.showActivateModal = true;
+    },
+    activate() {
+
     }
   },
   provide() {
@@ -102,6 +123,10 @@ export default {
   width: 80%;
 }
 
+.log:first-child {
+  border-top: 1px solid #6D6D6D; padding-top: 4px;
+}
+
 .log {
   color: #FFFFFF;
   font-size: 18px;
@@ -124,5 +149,16 @@ export default {
   color: #FFFFFF;
   font-size: 20px;
   margin-top: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.design-link:first-child {
+  border-top: 2px solid #6D6D6D;
 }
 </style>

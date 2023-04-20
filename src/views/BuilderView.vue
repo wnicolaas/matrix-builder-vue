@@ -2,7 +2,17 @@
   <modal-light-box
       v-if="showSaveModal"
       @close="this.showSaveModal = false">
-    Hello world
+    <div class="modal-container">
+      <h2>Save Design?</h2>
+      <form @submit.prevent="saveDesign">
+        <label for="design-name">Design Name</label>
+        <input id="design-name" v-model="designName" type="text" required>
+        <div class="button-container">
+          <div class="button cancel" @click="this.showSaveModal = false">Cancel</div>
+          <div class="button" @click="saveDesign">Save</div>
+        </div>
+      </form>
+    </div>
   </modal-light-box>
 
   <div
@@ -10,7 +20,6 @@
       @mouseleave="setDragging(false)"
       @mouseup="setDragging(false)">
     <MatrixGrid
-        v-if="design[0][0]"
         @designValues="design = $event"
         @mousedown="setDragging(true)"
         @isDragging="setDragging"
@@ -24,7 +33,7 @@
           @selectedColor="onColorSelect">
       </ThePalette>
       <div class="save">
-        <div class="button" @click="saveDesign">Save</div>
+        <div class="button" @click="openSaveModal">Save</div>
       </div>
     </div>
   </div>
@@ -34,8 +43,9 @@
 import MatrixGrid from "@/components/matrix-grid/MatrixGrid.vue";
 import ThePalette from "@/components/palette/ThePalette.vue";
 import {computed} from "vue";
-import {Colors, Design} from "@/models/Design";
+import {Design} from "@/models/Design";
 import ModalLightBox from "@/components/modal/ModalLightBox.vue";
+import {getDesignById, getRandomDesign} from "@/utils/randomData";
 
 export default {
   name: "BuilderView",
@@ -45,8 +55,18 @@ export default {
       selectedColor: '#000000',
       isDragging: false,
       fillColor: '#000000',
-      design: this.getDesignOne().valuesRows,
-      showSaveModal: true
+      design: getDesign(this.designId).valuesRows,
+      showSaveModal: false,
+      designName: ''
+    }
+  },
+  props: {
+    designId: {
+      type: String,
+      default: '',
+      validator(value) {
+        return value === '' || !isNaN(parseInt(value));
+      }
     }
   },
   provide() {
@@ -65,32 +85,26 @@ export default {
     fill() {
       this.fillColor = this.selectedColor;
     },
-    getDesignOne() {
-      return new Design(32, 64, getRandomDesignValues(32, 64));
+    openSaveModal() {
+      this.showSaveModal = true;
     },
+
     saveDesign() {
       const design = new Design(this.design.length, this.design[1].length, this.design);
-
+      design.title = this.designName;
       console.log(design);
+      this.showSaveModal = false;
     }
   }
 }
 
-  function getRandomDesignValues(height, width) {
-    const values = [];
-    for (let i = 0; i < height; i++) {
-      const row = [];
-      for (let j = 0; j < width; j++) {
-        row.push(getRandomInt(8));
-      }
-      values.push(row);
-    }
-    return values;
+function getDesign(id) {
+  if (id) {
+    return getDesignById(parseInt(id));
   }
+  return getRandomDesign();
+}
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
 </script>
 
 <style scoped>
@@ -112,5 +126,18 @@ export default {
   border-radius: 5px;
 }
 
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
 
 </style>

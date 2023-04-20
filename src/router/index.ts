@@ -13,9 +13,10 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/builder',
+      path: '/builder/:designId?',
       name: 'builder',
-      component: BuilderView
+      component: BuilderView,
+      props: true
     },
     {
       path: '/designs',

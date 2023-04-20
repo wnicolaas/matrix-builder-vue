@@ -12,6 +12,7 @@ body {
 
 .button  {
     background-color: #3AE374;
+    color: #000000;
     padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -22,6 +23,14 @@ body {
 
 .button:hover {
     background-color: #2ECC6A;
+}
+
+.cancel {
+    background-color: #FFFFFF;
+}
+
+.cancel:hover {
+    background-color: #E5E5E5;
 }
 
 .button:active {
@@ -42,4 +51,25 @@ body {
 
 .icon-button:active > * {
     filter: invert(100%);
+}
+
+input {
+    background-color: #2D2D2D;
+    color: #3AE374;
+    border: 2px solid #3AE374;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+}
+
+label {
+    color: #3AE374;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
 }
