@@ -4,7 +4,7 @@ export class Design {
             throw new Error('valuesRows must be an array with the same length as heightNodes');
         }
 
-        this.id = '';
+        this.id = -1;
         this.title = '';
         this.heightNodes = heightNodes;
         this.widthNodes = widthNodes;

@@ -2154,7 +2154,7 @@ function getDesignOne() {
         ]
     ]);
     design.title = '#1 - Random stuff';
-    design.id = '1';
+    design.id = 1;
     return design;
 }
 
@@ -4274,7 +4274,7 @@ function getDesignTwo() {
         ]
     ]);
     design.title = '#2 - Beach';
-    design.id = '2';
+    design.id = 2;
     return design;
 }
 
@@ -6394,7 +6394,7 @@ function getDesignThree() {
         ]
     ]);
     design.title = '#3 - Hello World';
-    design.id = '3';
+    design.id = 3;
     return design;
 }
 
@@ -8514,7 +8514,7 @@ function getDesignFour() {
         ]
     ]);
     design.title = '#4 - Dutch Flag';
-    design.id = '4';
+    design.id = 4;
     return design;
 }
 

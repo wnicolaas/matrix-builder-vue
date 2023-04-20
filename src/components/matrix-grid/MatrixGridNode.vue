@@ -43,6 +43,9 @@ export default {
     },
     currentColor() {
       this.$emit('currentColor', parseColorString(this.currentColor));
+    },
+    color() {
+      this.currentColor = parseColorInt(this.color);
     }
   },
   inject: ['providedIsDragging', 'fillColor'],

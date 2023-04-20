@@ -1,10 +1,10 @@
 <template>
   <modal-light-box v-if="showActivateModal" @close="showActivateModal = false">
     <h2>Activate design?</h2>
-    <p>Do you wish to activate design '{{modalDesignTitle}}'?</p>
+    <p>Do you wish to activate design '{{modalDesign.title}}'?</p>
     <div class="button-container">
       <div class="button cancel" @click="showActivateModal = false">Cancel</div>
-      <div class="button" @click="activate">Activate</div>
+      <div class="button" @click="activate(modalDesign.id)">Activate</div>
     </div>
   </modal-light-box>
 
@@ -17,7 +17,7 @@
     <div class="left-content">
       <h1 class="header-h1">Recent Designs</h1>
       <div class="recent-designs">
-        <design-link class="design-link" v-for="design in getDesigns()" @onActivate="openModal($event)" :title="design.title"/>
+        <design-link class="design-link" v-for="design in getDesigns()" @onActivate="openActivateModal($event)" :design="design"/>
       </div>
 
       <h1 class="header-h1" style="margin-top: 50px">Logs</h1>
@@ -50,7 +50,7 @@ export default {
     return {
       status: 'Online', // TODO : should only show logs & can only delete when logged in
       showActivateModal: false,
-      modalDesignTitle: '',
+      modalDesign: null,
       activeDesign: getDesignById(3)
     }
   },
@@ -61,12 +61,14 @@ export default {
     getLogs() {
       return getLogs().slice(0, 7);
     },
-    openModal(title) {
-      this.modalDesignTitle = title;
+    openActivateModal(design) {
+      this.modalDesign = design;
       this.showActivateModal = true;
     },
-    activate() {
-
+    activate(id) {
+      console.log('Activating design with id: ' + id);
+      this.activeDesign = getDesignById(id);
+      this.showActivateModal = false;
     }
   },
   provide() {

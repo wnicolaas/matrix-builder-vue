@@ -1,22 +1,24 @@
 <template>
   <div class="container">
-    <p class="title">{{title}}</p>
+    <p class="title">{{design.title}}</p>
     <div class="button activate-button" @click="activate">Activate</div>
   </div>
 </template>
 
 <script>
+import {Design} from "@/models/Design";
+
 export default {
   name: "DesignLink",
   props: {
-    title: {
-      type: String,
+    design: {
+      type: Design,
       required: true
     }
   },
   methods: {
     activate() {
-      this.$emit('onActivate', this.title);
+      this.$emit('onActivate', this.design);
     }
   }
 }
@@ -40,7 +42,4 @@ export default {
 .activate-button {
   margin-right: 25px;
 }
-
-
-
 </style>

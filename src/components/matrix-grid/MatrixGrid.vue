@@ -61,7 +61,18 @@ export default {
       this.$emit('gridValues', this.loadedDesignValues);
     }
   },
+  watch: {
+    designValues: function (val) {
+      this.loadedDesignValues = val;
+    }
+  },
   mounted: function () {
+    this.loadedDesignValues = this.designValues;
+  },
+  beforeUpdate: function () {
+    this.loadedDesignValues = this.designValues;
+  },
+  updated: function () {
     this.loadedDesignValues = this.designValues;
   }
 }
