@@ -21,9 +21,10 @@
       </div>
 
       <h1 class="header-h1" style="margin-top: 50px">Logs</h1>
-      <div class="logs">
+      <div class="logs" v-if="$store.state.isLoggedIn">
         <p class="log" v-for="log in getLogs()">{{log}}</p>
       </div>
+      <p v-else class="warning">You need to be logged in to view logs!</p>
     </div>
     <div class="divider"></div>
     <div class="right-content">
@@ -162,5 +163,10 @@ export default {
 
 .design-link:first-child {
   border-top: 2px solid #6D6D6D;
+}
+
+.warning {
+  color: #FFFFFF;
+  font-size: 18px;
 }
 </style>
